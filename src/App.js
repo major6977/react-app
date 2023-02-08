@@ -1,17 +1,40 @@
 import "./App.css";
 
 function App() {
-  const age = 17;
-  const isGreen = true;
+  const planets = [
+    { name: "Mars", isGasPlanet: false },
+    { name: "Earth", isGasPlanet: false },
+    { name: "Jupiter", isGasPlanet: true },
+    { name: "Venus", isGasPlanet: false },
+    { name: "Neptune", isGasPlanet: true },
+    { name: "Uranus", isGasPlanet: true },
+  ];
 
   return (
     <div className="App">
-      {age >= 18 ? <h1>Over Age</h1> : <h1>Under Age</h1>}
-      <h1 style={{ color: isGreen ? "green" : "red" }}> This has color</h1>
-      {isGreen && <button>This is a button</button>}
+      {planets.map((planet, key) =>
+        planet.isGasPlanet ? (
+          <h1 style={{ color: "green" }}> {planet.name}</h1>
+        ) : (
+          <h1 style={{ color: "red" }}>{planet.name}</h1>
+        )
+      )}
     </div>
   );
 }
+
+// function App(){
+//   const age = 17;
+//   const isGreen = true;
+
+//   return (
+//     <div className="App">
+//       {age >= 18 ? <h1>Over Age</h1> : <h1>Under Age</h1>}
+//       <h1 style={{ color: isGreen ? "green" : "red" }}> This has color</h1>
+//       {isGreen && <button>This is a button</button>}
+//     </div>
+//   );
+// }
 
 // function App() {
 //   return (
