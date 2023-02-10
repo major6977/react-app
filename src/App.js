@@ -1,27 +1,58 @@
 import "./App.css";
 
+import { useState } from "react";
+
 function App() {
-  const planets = [
-    { name: "Mars", isGasPlanet: false },
-    { name: "Earth", isGasPlanet: false },
-    { name: "Jupiter", isGasPlanet: true },
-    { name: "Venus", isGasPlanet: false },
-    { name: "Neptune", isGasPlanet: true },
-    { name: "Uranus", isGasPlanet: true },
-  ];
+  const [count, setCount] = useState(0);
+  const increase = () => {
+    setCount(count + 1);
+  };
+
+  const decrease = () => {
+    setCount(count - 1);
+  };
+  const setToZero = () => {
+    setCount(0);
+  };
 
   return (
     <div className="App">
-      {planets.map((planet, key) =>
-        planet.isGasPlanet ? (
-          <h1 style={{ color: "green" }}> {planet.name}</h1>
-        ) : (
-          <h1 style={{ color: "red" }}>{planet.name}</h1>
-        )
-      )}
+      <button onClick={increase}>increase</button>
+
+      <button style={{ color: "red" }} onClick={decrease}>
+        decrease
+      </button>
+
+      <button style={{ color: "yellow" }} onClick={setToZero}>
+        setToZero
+      </button>
+      {count}
     </div>
   );
 }
+
+// function App() {
+//   const planets = [
+//     { name: "Mars", isGasPlanet: false },
+//     { name: "Earth", isGasPlanet: false },
+//     { name: "Jupiter", isGasPlanet: true },
+//     { name: "Venus", isGasPlanet: false },
+//     { name: "Neptune", isGasPlanet: true },
+//     { name: "Uranus", isGasPlanet: true },
+//   ];
+
+//   return (
+//     <div className="App">
+//       {planets.map((planet, key) =>
+//         planet.isGasPlanet ? (
+//           <h1 style={{ color: "green" }}> {planet.name}</h1>
+//         ) : (
+//           <h1 style={{ color: "red" }}>{planet.name}</h1>
+//         )
+//       )}
+//     </div>
+//   );
+// }
 
 // function App(){
 //   const age = 17;
