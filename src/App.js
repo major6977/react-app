@@ -1,35 +1,67 @@
 import "./App.css";
-
+// import useState hook
 import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const increase = () => {
-    setCount(count + 1);
+  // create state to represent todo list (1. name of variable is "todoList, 2. name of function to change variable is "setToDoList", 3. then set initial value of variable to empty array "useState ([])
+  const [todoList, setTodoList] = useState([]);
+  // keep track of value inside input and add it to list 1. create state to represent value of input (1. name of variable is "newTask" 2. name of function to change variable is "setNewTask" 3. then set initial value of variable to empty string "useState("");
+  const [newTask, setNewTask] = useState("");
+
+  const handleChange = (event) => {
+    setNewTask(event.target.value);
   };
 
-  const decrease = () => {
-    setCount(count - 1);
-  };
-  const setToZero = () => {
-    setCount(0);
+  const addTask = () => {
+    const newTodoList = [...todoList, newTask];
+    setTodoList(newTodoList);
   };
 
   return (
     <div className="App">
-      <button onClick={increase}>increase</button>
-
-      <button style={{ color: "red" }} onClick={decrease}>
-        decrease
-      </button>
-
-      <button style={{ color: "yellow" }} onClick={setToZero}>
-        setToZero
-      </button>
-      {count}
+      <div className="addTask">
+        <input onChange={handleChange} />
+        <button onClick={addTask}> Add Task</button>
+      </div>
+      <div className="list">
+        {todoList.map((task) => {
+          return <h1>{task}</h1>;
+        })}
+      </div>
     </div>
   );
 }
+
+// import { useState } from "react";
+
+// function App() {
+//   const [count, setCount] = useState(0);
+//   const increase = () => {
+//     setCount(count + 1);
+//   };
+
+//   const decrease = () => {
+//     setCount(count - 1);
+//   };
+//   const setToZero = () => {
+//     setCount(0);
+//   };
+
+//   return (
+//     <div className="App">
+//       <button onClick={increase}>increase</button>
+
+//       <button style={{ color: "red" }} onClick={decrease}>
+//         decrease
+//       </button>
+
+//       <button style={{ color: "yellow" }} onClick={setToZero}>
+//         setToZero
+//       </button>
+//       {count}
+//     </div>
+//   );
+// }
 
 // function App() {
 //   const planets = [
