@@ -1,35 +1,81 @@
 import "./App.css";
-//  import useState hook
 import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [todoList, setTodoList] = useState([]);
+  const [newTask, setNewTask] = useState("");
 
-  const increase = () => {
-    setCount(count + 1);
+  const handleChange = (event) => {
+    setNewTask(event.target.value);
   };
 
-  const decrease = () => {
-    setCount(count - 1);
+  const addTask = () => {
+    setTodoList([...todoList, newTask]);
   };
 
-  const setToZero = () => {
-    setCount(0);
+  const deleteTask = (taskName) => {
+    const newTodoList = todoList.filter((task) => {
+      if (task === taskName) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    setTodoList(newTodoList);
   };
 
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  // };
   return (
     <div className="App">
-      <button onClick={increase}>Increase</button>
-      <button onClick={decrease}>Decrease</button>
-      <button onClick={setToZero}>SET TO Zero</button>
-
-      {count}
+      <div className="addTask">
+        <input onChange={handleChange} />
+        <button onClick={addTask}> Add Task</button>
+        <div className="list">
+          {todoList.map((task) => {
+            return (
+              <div>
+                <h1>{task}</h1>
+                <button onClick={() => deleteTask(task)}> X </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
+
+//  import useState hook
+// import { useState } from "react";
+
+// function App() {
+//   const [count, setCount] = useState(0);
+
+//   const increase = () => {
+//     setCount(count + 1);
+//   };
+
+//   const decrease = () => {
+//     setCount(count - 1);
+//   };
+
+//   const setToZero = () => {
+//     setCount(0);
+//   };
+
+//   // const handleInputChange = (event) => {
+//   //   setInputValue(event.target.value);
+//   // };
+//   return (
+//     <div className="App">
+//       <button onClick={increase}>Increase</button>
+//       <button onClick={decrease}>Decrease</button>
+//       <button onClick={setToZero}>SET TO Zero</button>
+
+//       {count}
+//     </div>
+//   );
+// }
 
 // create state to represent todo list (1. name of variable is "todoList, 2. name of function to change variable is "setToDoList", 3. then set initial value of variable to empty array "useState ([])
 // const [todoList, setTodoList] = useState([]);
