@@ -1,64 +1,85 @@
 import "./App.css";
-import { useState } from "react";
-import { Task } from "./Task";
+import Axios from "axios";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [catFact, setCatFact] = useState("");
 
-  const handleChange = (event) => {
-    setNewTask(event.target.value);
+  const fetchCatFact = () => {
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setCatFact(res.data.fact);
+    });
   };
 
-  const addTask = () => {
-    const task = {
-      id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
-      taskName: newTask,
-      completed: false,
-    };
-    setTodoList([...todoList, task]);
-  };
-
-  const deleteTask = (id) => {
-    const newTodoList = todoList.filter((task) => task.id !== id);
-
-    setTodoList(newTodoList);
-  };
-
-  const completeTask = (id) => {
-    setTodoList(
-      todoList.map((task) => {
-        if (task.id === id) {
-          return { ...task, completed: true };
-        } else {
-          return task;
-        }
-      })
-    );
-  };
+  useEffect(() => {
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setCatFact(res.data.fact);
+    });
+  }, []);
 
   return (
     <div className="App">
-      <div className="addTask">
-        <input onChange={handleChange} />
-        <button onClick={addTask}> Add Task</button>
-        <div className="list">
-          {todoList.map((task) => {
-            return (
-              <Task
-                taskName={task.taskName}
-                id={task.id}
-                completed={task.completed}
-                deleteTask={deleteTask}
-                completeTask={completeTask}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <button onClick={fetchCatFact}> Generate Cat Fact </button>
+      <p> {catFact} </p>
     </div>
   );
 }
+//   const [todoList, setTodoList] = useState([]);
+//   const [newTask, setNewTask] = useState("");
+
+//   const handleChange = (event) => {
+//     setNewTask(event.target.value);
+//   };
+
+//   const addTask = () => {
+//     const task = {
+//       id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
+//       taskName: newTask,
+//       completed: false,
+//     };
+//     setTodoList([...todoList, task]);
+//   };
+
+//   const deleteTask = (id) => {
+//     const newTodoList = todoList.filter((task) => task.id !== id);
+
+//     setTodoList(newTodoList);
+//   };
+
+//   const completeTask = (id) => {
+//     setTodoList(
+//       todoList.map((task) => {
+//         if (task.id === id) {
+//           return { ...task, completed: true };
+//         } else {
+//           return task;
+//         }
+//       })
+//     );
+//   };
+
+//   return (
+//     <div className="App">
+//       <div className="addTask">
+//         <input onChange={handleChange} />
+//         <button onClick={addTask}> Add Task</button>
+//         <div className="list">
+//           {todoList.map((task) => {
+//             return (
+//               <Task
+//                 taskName={task.taskName}
+//                 id={task.id}
+//                 completed={task.completed}
+//                 deleteTask={deleteTask}
+//                 completeTask={completeTask}
+//               />
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 //  import useState hook
 // import { useState } from "react";
