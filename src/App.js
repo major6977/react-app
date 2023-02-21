@@ -1,29 +1,68 @@
 import "./App.css";
 import Axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [catFact, setCatFact] = useState("");
+  const [generatedExcuse, setGeneratedExcuse] = useState("");
 
-  const fetchCatFact = () => {
-    Axios.get("https://catfact.ninja/fact").then((res) => {
-      setCatFact(res.data.fact);
-    });
+  const fetchExcuse = (excuse) => {
+    Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`).then(
+      (res) => {
+        setGeneratedExcuse(res.data[0].excuse);
+      }
+    );
   };
-
-  useEffect(() => {
-    Axios.get("https://catfact.ninja/fact").then((res) => {
-      setCatFact(res.data.fact);
-    });
-  }, []);
-
   return (
     <div className="App">
-      <button onClick={fetchCatFact}> Generate Cat Fact </button>
-      <p> {catFact} </p>
+      <h1> Generate an Excuse </h1>
+      <button onClick={() => fetchExcuse("party")}>Party</button>
+      <button onClick={() => fetchExcuse("family")}>Family</button>
+      <button onClick={() => fetchExcuse("office")}>Office</button>
+
+      <p> {generatedExcuse} </p>
     </div>
   );
 }
+// const [name, setName] = useState("");
+// const [predictedAge, setPredictedAge] = useState(null);
+// const fetchData = () => {
+//   Axios.get(`https://api.agify.io/?name=${name}`).then((res) => {
+//     setPredictedAge(res.data);
+//   });
+// };
+// return (
+//   <div className="App">
+//     <input
+//       placeholder="Ex. Major..."
+//       onChange={(event) => {
+//         setName(event.target.value);
+//       }}
+//     />
+//     <button onClick={fetchData}> Predict Age </button>
+//     <h1> Predict Name: {predictedAge?.name}</h1>
+//     <h1> Predict Age: {predictedAge?.age}</h1>
+//     <h1> Predict count: {predictedAge?.count}</h1>
+//   </div>
+// );
+
+// const [catFact, setCatFact] = useState("");
+// const fetchCatFact = () => {
+//   Axios.get("https://catfact.ninja/fact").then((res) => {
+//     setCatFact(res.data.fact);
+//   });
+// };
+// useEffect(() => {
+//   Axios.get("https://catfact.ninja/fact").then((res) => {
+//     setCatFact(res.data.fact);
+//   });
+// }, []);
+// return (
+//   <div className="App">
+//     <button onClick={fetchCatFact}> Generate Cat Fact </button>
+//     <p> {catFact} </p>
+//   </div>
+// );
+
 //   const [todoList, setTodoList] = useState([]);
 //   const [newTask, setNewTask] = useState("");
 
