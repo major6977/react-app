@@ -1,3 +1,14 @@
-export const Home = (props) => {
-  return <h1> THIS IS THE HOME PAGE {props.username}</h1>;
+import { useQuery } from "@tanstack/react-query";
+import Axios from "axios";
+
+export const Home = () => {
+  const { data } = useQuery(["cat"], () => {
+    return Axios.get("https://catfact.ninja/fact").then((res) => res.data);
+  });
+
+  return (
+    <h1>
+      THIS IS THE HOME PAGE <p>{data?.fact}</p>
+    </h1>
+  );
 };
